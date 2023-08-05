@@ -1,7 +1,11 @@
 package com.sebastianrod.hackatoonapisebastian.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @Data
 @Builder
@@ -25,5 +29,10 @@ public class Product {
     @JoinColumn(name = "idcategory")
     private Category category;
 
+
+
+//    @ManyToMany(mappedBy = "products",fetch = FetchType.LAZY)
+//    @JsonBackReference
+//    private Set<Order> orders;
 
 }

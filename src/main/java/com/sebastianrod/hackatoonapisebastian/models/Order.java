@@ -1,5 +1,6 @@
 package com.sebastianrod.hackatoonapisebastian.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +9,7 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -33,17 +35,17 @@ public class Order {
     @JoinColumn(name = "idstatus")
     private OrderStatus orderStatus;
 
-    @ManyToMany
-    @JoinTable(
-            name = "order_product",
-            joinColumns = {
-                    @JoinColumn(name = "idorder")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "idproduct")
-            }
-    )
-    private List<Product> products;
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(name = "order_product",
+//            joinColumns = {
+//                    @JoinColumn(name = "idorder", referencedColumnName = "id")
+//            },
+//            inverseJoinColumns = {
+//                    @JoinColumn(name = "idproduct", referencedColumnName = "id")
+//            }
+//    )
+//    @JsonManagedReference
+//    private Set<Product> products;
 
 
     private Boolean enable;

@@ -18,9 +18,12 @@ public class OrderProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String idorder;
+    @ManyToOne()
+    @JoinColumn(name = "idproduct")
+    private Product product;
 
-    private String idproduct;
-
+    @ManyToOne()
+    @JoinColumn(name = "idorder")
+    private Order order;
 
 }

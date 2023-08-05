@@ -1,33 +1,34 @@
 package com.sebastianrod.hackatoonapisebastian.rest;
 
 import com.sebastianrod.hackatoonapisebastian.models.Category;
+import com.sebastianrod.hackatoonapisebastian.models.OrderStatus;
 import com.sebastianrod.hackatoonapisebastian.service.CategoryService;
+import com.sebastianrod.hackatoonapisebastian.service.OrderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RestController
-@RequestMapping(path = "/category")
-public class CategoryController {
+@RequestMapping(path = "/orderstatus")
+public class OrderStatusController {
 
     @Autowired
-    private CategoryService service;
+    private OrderStatusService service;
 
     @GetMapping(path = "/all")
-    public Collection<Category> getAll(){
+    public Collection<OrderStatus> getAll(){
         return service.getAll();
     }
 
     @GetMapping(path = "/id/{id}")
-    public ResponseEntity<Category> getById(@PathVariable Integer id){
+    public ResponseEntity<OrderStatus> getById(@PathVariable Integer id){
         try {
-            Category category = service.getById(id);
-            if (category != null) {
-                return new ResponseEntity<>(category, HttpStatus.OK);
+            OrderStatus orderStatus = service.getById(id);
+            if (orderStatus != null) {
+                return new ResponseEntity<>(orderStatus, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
@@ -37,20 +38,20 @@ public class CategoryController {
     }
 
     @PostMapping(path = "create")
-    public ResponseEntity<Category> create(@RequestBody Category category){
+    public ResponseEntity<OrderStatus> create(@RequestBody OrderStatus OrderStatus){
         try {
-            return new ResponseEntity<>(service.create(category), HttpStatus.OK);
+            return new ResponseEntity<>(service.create(OrderStatus), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping(path = "update/{id}")
-    public ResponseEntity<Category> update(@RequestBody Category category, Integer id){
+    public ResponseEntity<OrderStatus> update(@RequestBody OrderStatus orderStatus, Integer id){
         try {
-            Category categoryInDb = service.getById(id);
-            if (categoryInDb != null) {
-                return new ResponseEntity<>(service.update(id, category), HttpStatus.OK);
+            OrderStatus orderStatusInDb = service.getById(id);
+            if (orderStatusInDb != null) {
+                return new ResponseEntity<>(service.update(id, orderStatus), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
@@ -60,10 +61,10 @@ public class CategoryController {
     }
 
     @DeleteMapping(path = "delete/{id}")
-    public ResponseEntity<Category> delete(Integer id){
+    public ResponseEntity<OrderStatus> delete(Integer id){
         try {
-            Category category = service.getById(id);
-            if (category != null) {
+            OrderStatus orderStatus = service.getById(id);
+            if (orderStatus != null) {
                 return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -72,6 +73,5 @@ public class CategoryController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-
 
 }
